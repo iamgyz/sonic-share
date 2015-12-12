@@ -43,14 +43,16 @@ function onIncomingMessage(message){
     console.log("message: "+message);
     var _char  = bin2Int(message);
     if(_char == 255){
-        $('#show').html("Get Test Signal!");
+        $('#show').html("<strong>Get Test Signal!</strong>");
         token = '';
     }
     else if(token==''){
         token = _char+'-';
+        $('#show').html("Feeling the sound...");
     }
     else{
         token = token + _char;
+        $('#show').html("Geting the message...");
         $.ajax({
             type: "GET",
             url : 'http://192.168.1.106:10001/get/'+token,
@@ -58,7 +60,7 @@ function onIncomingMessage(message){
             success: function(data){
                 var msg = data.msg;
                 console.log(msg);
-                $('#show').html(msg);
+                $('#show').html("<strong>"+msg+"</strong>");
                 token = '';
             },
         });

@@ -12,6 +12,9 @@ redis_client.on('connect', function() {
 });
 
 app.use(cors());
+
+app.use('/', express.static(__dirname + '/public'));
+
 app.get('/send/:msg',function(req,res){
     var msg = req.params.msg;
     console.log('get msg =>'+msg);

@@ -4,9 +4,8 @@
   "description": "Send and receive emoticons without any network connection. Works on Android.",
   "main": "main.js",
   "scripts": {
-    "build": "browserify main.js -o build/all.js&&browserify send.js -o build/send.js",
-    "start": "python3 -m http.server 8888",
-    "broker": "node app.js"
+    "build": "browserify main.js -o public/js/all.js&&browserify send.js -o public/js/send.js",
+    "start": "node app.js"
   },
   "author": "",
   "license": "APL",

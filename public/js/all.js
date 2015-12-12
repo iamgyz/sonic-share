@@ -145,6 +145,7 @@ module.exports = SonicCoder;
 var RingBuffer = require('./ring-buffer.js');
 var SonicCoder = require('./sonic-coder.js');
 
+var isDEBUG = false;
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
 var audioContext = new window.AudioContext();
 /**
@@ -166,7 +167,7 @@ function SonicServer(params) {
   // How long (in ms) to wait for the next character.
   this.timeout = params.timeout || 300;
   //this.debug = !!params.debug;
-  this.debug = true;
+  this.debug = isDEBUG;
   this.peakHistory = new RingBuffer(160);
   this.peakTimes = new RingBuffer(160);
 
@@ -347,7 +348,8 @@ SonicServer.prototype.analysePeaks = function() {
         char != this.coder.startChar && char != this.coder.endChar) {
       this.buffer += char;
       this.lastChar = char;
-      console.log("Get char => "+char);
+      if (this.debug)
+        console.log("Get char => "+char);
       this.fire_(this.callbacks.character, char);
     }
     // Also look for the end character to go into idle mode.
@@ -377,7 +379,8 @@ SonicServer.prototype.getWholeMessage = function(){
             data.push(parseInt(_char));
         }
     }//for
-    console.log("data = ",data,data.length);
+    if (this.debug)
+        console.log("data = ",data,data.length);
 
     var chunks = Math.round(data.length / 8);
     var sum = [];
@@ -387,7 +390,8 @@ SonicServer.prototype.getWholeMessage = function(){
             sum[i] = sum[i] + data[j];
         }//for
     }//for
-    console.log("chunks = ",chunks,"sum[] = ",sum);
+    if (this.debug)
+        console.log("chunks = ",chunks,"sum[] = ",sum);
     //計算sum只要>=1/3就可ㄌ
     var result = [0,0,0,0,0,0,0,0];
     for(var i = 0 ; i< 8 ; i++){
@@ -631,14 +635,16 @@ function onIncomingMessage(message){
     console.log("message: "+message);
     var _char  = bin2Int(message);
     if(_char == 255){
-        $('#show').html("Get Test Signal!");
+        $('#show').html("<strong>Get Test Signal!</strong>");
         token = '';
     }
     else if(token==''){
         token = _char+'-';
+        $('#show').html("Feeling the sound...");
     }
     else{
         token = token + _char;
+        $('#show').html("Geting the message...");
         $.ajax({
             type: "GET",
             url : 'http://192.168.1.106:10001/get/'+token,
@@ -646,7 +652,7 @@ function onIncomingMessage(message){
             success: function(data){
                 var msg = data.msg;
                 console.log(msg);
-                $('#show').html(msg);
+                $('#show').html("<strong>"+msg+"</strong>");
                 token = '';
             },
         });
