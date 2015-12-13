@@ -9438,9 +9438,10 @@ $('#btnTest').on('click',function(){
 $('#btnSend').on('click',function(){
     $('#btnSend').attr("disabled", true);
     var message = $('#inputArea').val();
+    message = encodeURIComponent(message);
     $.ajax({
         type: "GET",
-        url : 'http://192.168.1.106:10001/send/'+message,
+        url : '/send/'+message,
         contentType: "application/json; charset=utf-8",
         success: function(data){
             var token = data.token;

@@ -647,10 +647,11 @@ function onIncomingMessage(message){
         $('#show').html("Geting the message...");
         $.ajax({
             type: "GET",
-            url : 'http://192.168.1.106:10001/get/'+token,
+            url : '/get/'+token,
             contentType: "application/json; charset=utf-8",
             success: function(data){
                 var msg = data.msg;
+                msg = decodeURIComponent(msg);
                 console.log(msg);
                 $('#show').html("<strong>"+msg+"</strong>");
                 token = '';
