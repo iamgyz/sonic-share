@@ -2,12 +2,13 @@
   "name": "sonicShare",
   "version": "0.0.1",
   "description": "Send and receive emoticons without any network connection. Works on Android.",
-  "main": "main.js",
+  "main": "app.js",
   "scripts": {
     "build": "browserify main.js -o public/js/all.js&&browserify send.js -o public/js/send.js",
-    "start": "node app.js"
+    "start": "node app.js",
+    "startf": "nohup forever app.js >sonic-share.log 2>&1 &"
   },
-  "author": "",
+  "author": "GYZHENG",
   "license": "APL",
   "dependencies": {
     "browserify": "^12.0.1",
