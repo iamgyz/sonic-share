@@ -9,7 +9,6 @@
     "startf": "nohup forever app.js >sonic-share.log 2>&1 &"
   },
   "author": "GYZHENG",
-  "license": "APL",
   "dependencies": {
     "browserify": "^12.0.1",
     "cors": "^2.7.1",
