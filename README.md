@@ -27,5 +27,8 @@ It would then generate the code in `/public/js/`
 
 ### Run  
 `npm run start`  
+The server would run on port `10001`
 
+### Note  
+Currently `Chrome` would not allow `getUserMedia()` under http connection, please use https connection in the production environment.
 
