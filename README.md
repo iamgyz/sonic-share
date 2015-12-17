@@ -2,14 +2,14 @@
 
 Using high frequence sound(18.5khz~19.5khz) to send the message!
 
-
+### DEMO  
+https://sonic-share.gyzlab.com  
 
 ### Install  
 ```
 git clone https://github.com/iamgyz/sonic-share.git  
 cd sonic-share  
 npm install  
-npm run startf  
 ```
 
 ### Database  
